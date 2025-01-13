@@ -41,3 +41,20 @@ func InitializeStore() *StorageService {
     storeService.redisClient = redisClient
     return storeService
 }
+
+// save mapping between original url and shortened url
+func SaveUrlMapping(shortUrl string, originalUrl string, userId string) {
+    err := storeService.redisClient.Set(ctx, shortUrl, originalUrl, CacheDuration).Err()
+    if err != nil {
+        panic(fmt.Sprintf("Failed saving key url | Error: %v - short url: %s, long url: %s", err, shortUrl, originalUrl))
+    }
+}
+
+// retrieve initial url based on short url
+func RetrieveInitialUrl(shortUrl string) string {
+    result, err := storeService.redisClient.Get(ctx, shortUrl).Result()
+    if err != nil {
+        panic(fmt.Sprintf("Failed retrieving url | Error: %v - short url: %s", err, shortUrl))
+    }
+    return result
+}
