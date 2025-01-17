@@ -16,7 +16,7 @@ func TestStoreInit(t *testing.T) {
 }
 
 func TestInsertionAndRetrieval(t *testing.T) {
-    initialLink := "https://chess.com"
+    initialLink := "https://cnn.com/"
     userUUId := "e0dba740-fc4b-4977-872c-d360239e6b1a"
     shortURL := "Jsz4k57oAX"
 
